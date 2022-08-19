@@ -1,8 +1,10 @@
+import Home from "./components/Home";
+import "./style.css";
 
 function App() {
   return (
     <div className="App">
-      Cleaned Up
+      <Home/>
     </div>
   );
 }
