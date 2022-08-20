@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Profile = () => {
+const Profile = ({ user }) => {
   return (
     <div>
-      Profile
+      <h1>Hello, {user?.username}</h1>
     </div>
   )
 }
