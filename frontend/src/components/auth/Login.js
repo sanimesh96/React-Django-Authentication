@@ -1,23 +1,33 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Form, Container, Col, Card, FormGroup } from "react-bootstrap";
-var axios = require("axios");
+import { Button, Form, Container, Col, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const Login = () => {
-
   const [formData, setFormData] = useState([]);
-
+  let navigate = useNavigate();
 
   const callApi = (e) => {
     e.preventDefault();
-    let response = axios.post("http://localhost:8000/api/login/", {
-      email: formData.email,
-      password: formData.password,
-    }).then((resp) => {
-      console.log(resp)
-    }).catch((error)=>{
-      console.log(error.response);
-    })
+    axios
+      .post("http://localhost:8000/api/login/", {
+        email: formData.email,
+        password: formData.password,
+      })
+      .then((resp) => {
+        localStorage.setItem("token", resp.data.access);
+        if (resp.data.access) {
+          localStorage.setItem("authenticated", true);
+        } else {
+          localStorage.setItem("authenticated", false);
+        }
+        navigate("/profile");
+      })
+      .catch((error) => {
+        console.error(error.response);
+      });
   };
+
   return (
     <Col md={4}>
       <Card className="shadow-lg p-5">
@@ -56,7 +66,7 @@ const Login = () => {
         </Container>
       </Card>
     </Col>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

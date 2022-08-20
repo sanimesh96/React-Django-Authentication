@@ -1,23 +1,29 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Form, Container, Col, Card, FormGroup } from "react-bootstrap";
-var axios = require("axios");
+import { Button, Form, Container, Col, Card } from "react-bootstrap";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState([]);
+  let navigate = useNavigate();
 
   const callApi = (e) => {
     e.preventDefault();
-    let response = axios.post("http://localhost:8000/api/register/", {
-      username: formData.username,
-      email: formData.email,
-      password: formData.password,
-      password2: formData.password1,
-    }).then((resp) => {
-      console.log(resp)
-    }).catch((error)=>{
-      console.log(error.response);
-    })
+    axios
+      .post("http://localhost:8000/api/register/", {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        password2: formData.password1,
+      })
+      .then((resp) => {
+        console.log(resp);
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error(error.response);
+      });
   };
 
   return (
