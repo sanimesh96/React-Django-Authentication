@@ -27,3 +27,10 @@ def getRoutes(request):
         '/api/login/refresh/'
     ]
     return Response(routes)
+
+
+from rest_framework_simplejwt.tokens import AccessToken
+def getUser(request):
+    token = request.headers['Authtoken']
+
+    return JsonResponse({"hello" : "hello"})

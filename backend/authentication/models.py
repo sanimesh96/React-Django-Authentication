@@ -8,7 +8,7 @@ GENDER_CHOICES = [
     ('Female', 'Female'),
     ('Prefer Not to say', 'Prefer Not to say'),
 ]
-class CustomUser(AbstractUser, PermissionsMixin):
+class CustomUser(AbstractUser):
     username = models.CharField(db_index=True, max_length=255, unique=True)
     email = models.EmailField(db_index=True, unique=True,  null=True, blank=True)
     is_active = models.BooleanField(default=True)
